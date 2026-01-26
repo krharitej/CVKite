@@ -18,7 +18,7 @@ public class AuthService {
 
     private final UserRepository userRepository;
 
-    public AuthResponse regiter(RegisterRequest request){
+    public AuthResponse register(RegisterRequest request){
         log.info("Inside Auth service: register() {}", request);
         if(userRepository.existsByEmail(request.getEmail())){
             throw new RuntimeException("User exists");
