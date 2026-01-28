@@ -29,7 +29,7 @@ public class AuthService {
 
         userRepository.save(newUser);
 
-        //send verification mail
+        //TODO - send verification mail
         return toResponse(newUser);
 
     }
