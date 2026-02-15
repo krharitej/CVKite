@@ -3,6 +3,7 @@ package com.cvkite.cvkite_service.service;
 import com.cvkite.cvkite_service.document.User;
 import com.cvkite.cvkite_service.dto.AuthResponse;
 import com.cvkite.cvkite_service.dto.RegisterRequest;
+import com.cvkite.cvkite_service.exception.ResourceExistsException;
 import com.cvkite.cvkite_service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,7 @@ public class AuthService {
     public AuthResponse register(RegisterRequest request){
         log.info("Inside Auth service: register() {}", request);
         if(userRepository.existsByEmail(request.getEmail())){
-            throw new RuntimeException("User exists");
+            throw new ResourceExistsException("User exists");
         }
 
         //Adding new user to database
@@ -55,6 +56,8 @@ public class AuthService {
                 .profileImgUrl(newUser.getProfileImgUrl())
                 .emailVerified(newUser.isEmailVerified())
                 .subscriptionPlan(newUser.getSubscriptionPlan())
+                .createdAt(newUser.getCreatedAt())
+                .updatedAt(newUser.getUpdatedAt())
                 .build();
     }
 
